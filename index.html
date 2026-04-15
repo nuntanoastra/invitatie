@@ -62,10 +62,12 @@
       position: absolute;
       inset: -8%;
       background-size: cover;
-      background-position: center;
+      background-position: center center;
+      background-repeat: no-repeat;
       opacity: 0;
       transition: opacity 2s ease-in-out;
       will-change: transform, opacity;
+      transform-origin: center center;
     }
 
     .hero-slide.active {
@@ -86,6 +88,40 @@
     @keyframes kenBurnsAlt {
       0% { transform: scale(1.08) translate(-1%, 0); }
       100% { transform: scale(1) translate(1%, 1%); }
+    }
+
+    /* Pe ecrane înguste: fără pan Ken Burns + fără inset negativ — subiectul rămâne centrat ca pe laptop */
+    @media (max-width: 900px) {
+      .hero-slide {
+        inset: 0;
+        background-position: center center;
+      }
+
+      .hero-slide.active {
+        animation: kenBurnsMobile 14s ease-out forwards;
+      }
+
+      .hero-slide.active.alt {
+        animation-name: kenBurnsMobileAlt;
+      }
+    }
+
+    @keyframes kenBurnsMobile {
+      0% { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1.05) translate(0, 0); }
+    }
+
+    @keyframes kenBurnsMobileAlt {
+      0% { transform: scale(1.04) translate(0, 0); }
+      100% { transform: scale(1) translate(0, 0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-slide.active,
+      .hero-slide.active.alt {
+        animation: none;
+        transform: none;
+      }
     }
 
     .hero-scrim {
@@ -296,6 +332,7 @@
       inset: -6%;
       background-size: cover;
       background-position: center 30%;
+      background-repeat: no-repeat;
       opacity: 0;
       transition: opacity 2.4s ease-in-out;
       will-change: opacity;
@@ -304,6 +341,13 @@
     .content-slide.active {
       opacity: 1;
       z-index: 1;
+    }
+
+    @media (max-width: 900px) {
+      .content-slide {
+        inset: 0;
+        background-position: center center;
+      }
     }
 
     .content__scrim {
