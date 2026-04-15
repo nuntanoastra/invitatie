@@ -90,30 +90,27 @@
       100% { transform: scale(1) translate(1%, 1%); }
     }
 
-    /* Pe ecrane înguste: fără pan Ken Burns + fără inset negativ — subiectul rămâne centrat ca pe laptop */
+    /* Mobil: fără animație/transform pe slide (iOS decupează rău cu scale); poziție pentru subiect tip portret */
     @media (max-width: 900px) {
+      .hero-media {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+      }
+
       .hero-slide {
         inset: 0;
-        background-position: center center;
-      }
-
-      .hero-slide.active {
-        animation: kenBurnsMobile 14s ease-out forwards;
-      }
-
-      .hero-slide.active.alt {
-        animation-name: kenBurnsMobileAlt;
+        animation: none !important;
+        transform: none !important;
+        background-size: cover;
+        background-position: center 38%;
       }
     }
 
-    @keyframes kenBurnsMobile {
-      0% { transform: scale(1) translate(0, 0); }
-      100% { transform: scale(1.05) translate(0, 0); }
-    }
-
-    @keyframes kenBurnsMobileAlt {
-      0% { transform: scale(1.04) translate(0, 0); }
-      100% { transform: scale(1) translate(0, 0); }
+    @media (max-width: 900px) and (max-aspect-ratio: 10/16) {
+      .hero-slide {
+        background-size: auto 100%;
+        background-position: center top;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -266,12 +263,8 @@
 
     .countdown {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 0.6rem;
-    }
-
-    @media (max-width: 520px) {
-      .countdown { grid-template-columns: repeat(2, 1fr); }
     }
 
     .cd-box {
@@ -303,6 +296,26 @@
       text-transform: uppercase;
       color: var(--hero-muted);
       margin-top: 0.4rem;
+    }
+
+    @media (max-width: 520px) {
+      .countdown {
+        gap: 0.3rem;
+      }
+
+      .cd-box {
+        padding: 0.5rem 0.15rem;
+      }
+
+      .cd-num {
+        font-size: 1.2rem;
+      }
+
+      .cd-label {
+        font-size: 0.42rem;
+        letter-spacing: 0.06em;
+        margin-top: 0.25rem;
+      }
     }
 
     /* ——— Conținut scroll ———
@@ -942,15 +955,10 @@
   <section class="hero-stage" aria-label="Introducere">
     <div class="hero-media" aria-hidden="true">
       <!-- Slideshow foto (Ken Burns) -->
-      <div class="hero-slide active" style="background-image: url('media/slide01.png');" data-i="0"></div>
-      <div class="hero-slide" style="background-image: url('media/slide02.png');" data-i="1"></div>
-      <div class="hero-slide" style="background-image: url('media/slide03.png');" data-i="2"></div>
-      <div class="hero-slide" style="background-image: url('media/slide04.png');" data-i="3"></div>
-      <div class="hero-slide" style="background-image: url('media/slide05.png');" data-i="4"></div>
-      <div class="hero-slide" style="background-image: url('media/slide06.png');" data-i="5"></div>
-      <div class="hero-slide" style="background-image: url('media/slide07.png');" data-i="6"></div>
-      <div class="hero-slide" style="background-image: url('media/slide08.png');" data-i="7"></div>
-      <div class="hero-slide" style="background-image: url('media/slide09.png');" data-i="8"></div>
+      <div class="hero-slide active" style="background-image: url('media/slide03.png');" data-i="0"></div>
+      <div class="hero-slide" style="background-image: url('media/slide05.png');" data-i="1"></div>
+      <div class="hero-slide" style="background-image: url('media/slide06.png');" data-i="2"></div>
+      <div class="hero-slide" style="background-image: url('media/slide09.png');" data-i="3"></div>
     </div>
 
     <div class="hero-scrim" aria-hidden="true"></div>
@@ -1001,14 +1009,9 @@
     <!-- Fundal foto (locație + RSVP): elimină `content--photos-bg` de pe <main> dacă nu îți place -->
     <div class="content__slides" aria-hidden="true">
       <div class="content-slide active" style="background-image: url('media/slide03.png');"></div>
-      <div class="content-slide" style="background-image: url('media/slide04.png');"></div>
       <div class="content-slide" style="background-image: url('media/slide05.png');"></div>
       <div class="content-slide" style="background-image: url('media/slide06.png');"></div>
-      <div class="content-slide" style="background-image: url('media/slide07.png');"></div>
-      <div class="content-slide" style="background-image: url('media/slide08.png');"></div>
       <div class="content-slide" style="background-image: url('media/slide09.png');"></div>
-      <div class="content-slide" style="background-image: url('media/slide01.png');"></div>
-      <div class="content-slide" style="background-image: url('media/slide02.png');"></div>
     </div>
     <div class="content__scrim" aria-hidden="true"></div>
 
